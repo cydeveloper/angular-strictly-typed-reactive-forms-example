@@ -1,0 +1,32 @@
+<h4>Product Inventory</h4>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Is Active</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr [formGroup]="form">
+      <td>
+        <input type="text" formControlName="name" />
+      </td>
+      <td>
+        <input type="number" formControlName="price" />
+      </td>
+      <td>
+        <input type="checkbox" formControlName="isActive" />
+      </td>
+      <td>
+        <button (click)="add(form.value)">+ Add</button>
+      </td>
+    </tr>
+    <tr *ngFor="let product of productsData">
+      <td>{{ product.name }}</td>
+      <td>{{ product.price | currency }}</td>
+      <td>{{ product.isActive }}</td>
+    </tr>
+  </tbody>
+</table>
