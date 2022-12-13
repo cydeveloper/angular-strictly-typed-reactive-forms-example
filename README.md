@@ -1,9 +1,35 @@
 # Angular Strictly Typed Reactive Forms Example
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/angular-ivy-ed1mzc)
+## Live Demo
+
+[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/angular-typed-reactive-forms-example)
+
+---
+## IProductForm
+I've create an interface called IProductForm, which is type casted in the FormBuilder form group in ProductsComponent. This helps enforce strictly typed form fields.
+
+####  product-form.interface
+```typescript
+import { FormControl } from '@angular/forms';
+
+export interface IProductForm {
+  name: FormControl<string>;
+  price: FormControl<number>;
+  isActive: FormControl<boolean>;
+}
+
+```
 
 ####  products.component.ts
+```typescript
+this.form = this.fb.group<IProductForm>({
+  name: new FormControl<string>('', Validators.required),
+  price: new FormControl<number>(null, Validators.required),
+  isActive: new FormControl<boolean>(false, { nonNullable: true })
+});
 ```
+
+```typescript
 import { Component } from '@angular/core';
 import {
   FormBuilder,
@@ -19,6 +45,7 @@ import { IProduct } from '../interfaces/product.interface';
   selector: 'products',
   templateUrl: './products.component.html',
 })
+
 export class ProductsComponent {
   public productsData: IProduct[];
   public form: FormGroup;
@@ -43,8 +70,9 @@ export class ProductsComponent {
   }
 }
 ```
+
 #### products.component.html
-```
+```html
 <h4>Product Inventory</h4>
 <table>
   <thead>
